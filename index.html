@@ -273,7 +273,9 @@
       retina_detect: true
     });
 
-    // JavaScript cho phần Tải Tài Nguyên được thêm vào đây
+    let isMusicAutoPlayed = false;
+
+    // JavaScript cho phần Tải Tài Nguyên
     document.addEventListener('DOMContentLoaded', () => {
       const progressBar = document.getElementById('progress');
       const progressText = document.getElementById('progress-percentage');
@@ -296,6 +298,29 @@
         progressText.textContent = `${Math.round(progress)}%`;
       }, 50);
     });
+
+    // Sự kiện lắng nghe một lần chạm đầu tiên để phát nhạc
+    document.addEventListener('touchstart', autoPlayMusic, { once: true });
+    document.addEventListener('click', autoPlayMusic, { once: true });
+
+    function autoPlayMusic() {
+      const music = document.getElementById('background-music');
+      const lockscreen = document.querySelector('.lockscreen');
+
+      // Đảm bảo nhạc chỉ phát sau khi màn hình tải đã ẩn
+      // Sử dụng setTimeout để đảm bảo quá trình chuyển đổi đã hoàn tất
+      setTimeout(() => {
+        if (!isMusicAutoPlayed) {
+          music.play().then(() => {
+            isMusicAutoPlayed = true;
+            const musicIcon = document.getElementById('music-btn').querySelector('i');
+            musicIcon.classList.replace('fa-play', 'fa-pause');
+          }).catch(error => {
+            console.error('Lỗi khi tự động phát nhạc:', error);
+          });
+        }
+      }, 1100); // Đợi 1.1 giây sau khi màn hình ẩn để đảm bảo nhạc được phát sau khi chuyển đổi
+    }
 
     // Đoạn code JavaScript để chặn Developer Tools và các thao tác khác
     // Chặn phím tắt F12, Ctrl+Shift+I, Ctrl+U để mở Developer Tools
