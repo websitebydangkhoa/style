@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="thiết kế website, bán source code, share source code, Nguyễn Đăng Khoa, lập trình web">
+  <meta name="author" content="Nguyễn Đăng Khoa">
+  <title>Nguyễn Đăng Khoa - Thiết kế Website</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: none !important;
+      height: 100vh;
+      position: relative;
+    }
+
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      filter: brightness(0.25);
+    }
+
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background-image: url('images/anime_bg.png');
+      background-size: auto 100%;
+      background-repeat: repeat-x;
+      z-index: -3;
+      animation: moveBackground 30s linear infinite;
+    }
+
+    @keyframes moveBackground {
+      0% { background-position: 0 0; }
+      100% { background-position: -2000px 0; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* CSS cho phần Tải Tài Nguyên được thêm vào đây */
+    .lockscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+
+    .lockscreen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .lockscreen-text {
+      font-size: 2rem;
+      font-weight: 600;
+      text-align: center;
+      background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet, red);
+      background-size: 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      animation: rainbow 10s ease infinite;
+      margin-bottom: 20px;
+    }
+
+    .lockscreen-progress-bar {
+      width: 300px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 9999px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+    }
+    
+    .lockscreen-progress {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(45deg, #00ffcc, #ff00cc);
+      border-radius: 9999px;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 8px rgba(0, 255, 204, 0.7);
+    }
+    
+    .progress-percentage {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet, red);
+      background-size: 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      animation: rainbow 10s ease infinite;
+    }
+
+    @keyframes rainbow {
+      0% { background-position: 0%; }
+      100% { background-position: 400%; }
+    }
+    
+    @media (max-width: 768px) {
+      .lockscreen-text {
+        font-size: 1.5rem;
+      }
+      .lockscreen-progress-bar {
+        width: 200px;
+        height: 8px;
+      }
+      .progress-percentage {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="lockscreen">
+    <div class="lockscreen-text">Đang Tải Tài Nguyên</div>
+    <div class="lockscreen-progress-bar">
+      <div class="lockscreen-progress" id="progress"></div>
+    </div>
+    <div class="progress-percentage" id="progress-percentage">0%</div>
+  </div>
+
+  <video autoplay muted loop id="bg-video">
+    <source src="https://files.catbox.moe/0tyjpt.mp4" type="video/mp4">
+    <img src="images/fallback_bg.jpg" alt="Fallback Background">
+  </video>
+  
+  <div id="particles-js"></div>
+
+  <div class="container">
+    <div class="avatar-frame">
+      <img src="images/avatar.jpg" alt="Ảnh đại diện của Nguyễn Đăng Khoa" class="avatar">
+      <img src="images/frame.png" alt="Khung viền ảnh đại diện" class="avatar-border">
+    </div>
+    
+    <div class="name">
+      Nguyễn Đăng Khoa
+      <img src="images/verified.png" alt="Huy hiệu xác minh" class="verified-badge">
+    </div>
+
+    <div class="info">
+      Thiết kế website theo yêu cầu<br>
+      Bán và share source code<br>
+      Cần source code? Inbox Zalo mình<br>
+      <button class="button" onclick="location.href='https://zalo.me/0921079322'">
+        <i>Zalo: 0921079322</i>
+      </button>
+    </div>
+
+    <div class="button-container">
+      <button class="button" onclick="location.href='https://t.me/Toolsvip_dvmxh'">
+        <i class="fab fa-telegram"></i> Telegram
+      </button>
+      <button class="button" onclick="location.href='https://www.tiktok.com/@dangkhoa_coder'">
+        <i class="fab fa-tiktok"></i> TikTok
+      </button>
+      <button class="button" onclick="location.href='https://www.facebook.com/nguyen.ang.khoa.798421/'">
+        <i class="fab fa-facebook"></i> Facebook
+      </button>
+      <button class="button" onclick="location.href='https://github.com/sharecodebynguyendangkhoa'">
+        <i class="fab fa-github"></i> GitHub
+      </button>
+      <button class="button" onclick="location.href='https://dangkhoa123.netlify.app/'">
+        <i class="fa fa-qrcode"></i> Năng Lực
+      <button class="button" onclick="location.href='https://dangkhoadev.netlify.app/'">
+        <i class="fa fa-qrcode"></i> Web DangKhoa_Dev      
+      </button>
+    </div>
+
+    <hr class="divider">
+
+    <div class="donate-section">
+      <h3>Ủng hộ mình qua QR Code</h3>
+      <img src="images/qr_ndk.jpg" alt="QR Code Donate" class="qr-code">
+      <p class="bank-info">
+        NGÂN HÀNG: BIDV<br>
+        STK: 8836023812<br>
+        TÊN: NGUYEN MINH TRI
+      </p>
+      <button class="button" id="download-qr-btn">
+        <i class="fas fa-download"></i> Tải xuống QR
+      </button>
+    </div>
+  </div>
+
+  <button class="music-btn" id="music-btn">
+    <i class="fas fa-play"></i>
+  </button>
+
+  <audio id="background-music" loop>
+    <source src="media/music.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  
+  <script>
+    const musicBtn = document.getElementById('music-btn');
+    const music = document.getElementById('background-music');
+    const musicIcon = musicBtn.querySelector('i');
+
+    musicBtn.addEventListener('click', () => {
+      if (music.paused) {
+        music.play().catch(error => {
+          console.error('Lỗi phát nhạc:', error);
+        });
+        musicIcon.classList.replace('fa-play', 'fa-pause');
+      } else {
+        music.pause();
+        musicIcon.classList.replace('fa-pause', 'fa-play');
+      }
+    });
+
+    const downloadBtn = document.getElementById('download-qr-btn');
+
+    downloadBtn.addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.href = 'https://i.postimg.cc/pVJbNVhk/qr-ndk.jpg';
+      link.download = 'https://i.postimg.cc/pVJbNVhk/qr-ndk.jpg';
+      link.click();
+    });
+
+    // Khởi tạo hiệu ứng Particles.js
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: isMobile ? 70 : 150, density: { enable: true, value_area: 800 } },
+        color: { value: ["#ff0066", "#00ffcc", "#3897f0", "#ffff00", "#9900ff"] },
+        shape: { type: ["circle", "star", "triangle"] },
+        opacity: { value: 0.8, random: true },
+        size: { value: 6, random: true },
+        line_linked: { enable: true, distance: 120, color: "#ffffff", opacity: 0.6, width: 1.5 },
+        move: { enable: true, speed: isMobile ? 3 : 5, direction: "none", random: true, straight: false, out_mode: "out" }
+      },
+      interactivity: {
+        // Thuộc tính này được thay đổi để hiệu ứng hoạt động
+        detect_on: "window",
+        events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" }, resize: true },
+        modes: { grab: { distance: 180, line_linked: { opacity: 1 } }, push: { particles_nb: 6 } }
+      },
+      retina_detect: true
+    });
+
+    // JavaScript cho phần Tải Tài Nguyên được thêm vào đây
+    document.addEventListener('DOMContentLoaded', () => {
+      const progressBar = document.getElementById('progress');
+      const progressText = document.getElementById('progress-percentage');
+      const lockscreen = document.querySelector('.lockscreen');
+      let progress = 0;
+      const duration = 3000; // 3 giây
+      const increment = 100 / (duration / 50); // Cập nhật mỗi 50ms
+
+      const progressInterval = setInterval(() => {
+        progress += increment;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(progressInterval);
+          lockscreen.classList.add('hidden');
+          setTimeout(() => {
+            lockscreen.style.display = 'none';
+          }, 1000); // Tương ứng với thời gian transition
+        }
+        progressBar.style.width = `${progress}%`;
+        progressText.textContent = `${Math.round(progress)}%`;
+      }, 50);
+    });
+
+    // Đoạn code JavaScript để chặn Developer Tools và các thao tác khác
+    // Chặn phím tắt F12, Ctrl+Shift+I, Ctrl+U để mở Developer Tools
+    document.addEventListener('keydown', (event) => {
+      if (
+        event.key === 'F12' ||
+        (event.ctrlKey && event.shiftKey && event.key === 'I') ||
+        (event.ctrlKey && event.key === 'u')
+      ) {
+        event.preventDefault();
+        return false;
+      }
+    });
+
+    document.addEventListener('contextmenu', (event) => event.preventDefault());
+    document.addEventListener('selectstart', (event) => event.preventDefault());
+    document.addEventListener('cut', (event) => event.preventDefault());
+    document.addEventListener('copy', (event) => event.preventDefault());
+    document.addEventListener('paste', (event) => event.preventDefault());
+    document.addEventListener('dragstart', (event) => event.preventDefault());
+  </script>
+</body>
+</html>
