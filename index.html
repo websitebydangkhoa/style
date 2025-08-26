@@ -485,6 +485,17 @@ document.addEventListener('keydown', (event) => {
     event.stopPropagation();
   }
 });
+
+document.addEventListener('keydown', (event) => {
+  // Kiểm tra nếu phím Ctrl hoặc Cmd (trên Mac) đang được nhấn
+  if (event.ctrlKey || event.metaKey) {
+    // Ngăn chặn hành vi mặc định của trình duyệt
+    event.preventDefault();
+    
+    // Ngăn chặn sự kiện lan truyền lên các phần tử cha
+    event.stopPropagation();
+  }
+});
   </script>
 </body>
 </html>
